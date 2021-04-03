@@ -5,8 +5,7 @@
     <ProjectGuid>c6fb7d1d-7471-4fca-a92d-439d0449224d</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>PredictionofTerminationofAF.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>C:\Users\惠普\AppData\Roaming\Python\Python37\site-packages</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>PredictionofTerminationofAF</Name>
