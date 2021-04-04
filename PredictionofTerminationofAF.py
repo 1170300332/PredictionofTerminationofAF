@@ -6,17 +6,6 @@ import numpy as np
 from scipy import interpolate
 from sklearn.preprocessing import MinMaxScaler
 
-# 读取本地的100号记录，从0到7680，通道0
-#record = wfdb.rdrecord('af-termination-challenge-database-1.0.0/learning-set/n03', sampfrom=0, sampto=7680, physical=False, channels=[0,])
-#print("record frequency：" + str(record.fs))
-# 读取前7680数据
-#ventricular_signal = record.d_signal[0:7680]
-#print('signal shape: ' + str(ventricular_signal.shape))
-# 绘制波形
-#plt.pyplot.plot(ventricular_signal)
-#plt.pyplot.title("ventricular signal")
-#plt.pyplot.show()
-
 PATH = 'af-termination-challenge-database-1.0.0/learning-set/'
 ClassSet = ['n','s','t']
 NumberSet = ['01','02','03','04','05','06','07','08','09','10']
@@ -38,6 +27,7 @@ def denoise(data):
     rdata=pywt.waverec(coeffs=coeffs,wavelet='db5')
     return rdata
 
+#插值，为了对标MIT-BIH数据库，128hz->360hz,已弃用
 def interpolation(data,prehz,newhz):
     y=np.array(data)
     x=np.linspace(0,len(data),len(data))
@@ -66,11 +56,12 @@ def cut_series(data,time,fs):
 
 def read_single_data(type,number):
     file_path=PATH+type+number
-    record=wfdb.rdrecord(file_path,channel_names=['ECG'])#读取
+    record=wfdb.rdrecord(file_path,channels=[0])#读取
     rdata=record.p_signal.flatten()
     data=denoise(rdata)#去噪
-    new_data=interpolation(data,128,360)#上采样
-    cut_series(new_data,10,360)#切割
+    new_data=np.array(data)
+    #new_data=interpolation(data,128,360)#上采样
+    cut_series(new_data,10,128)#切割
 
 def read_all_data():
     for type in ClassSet:
@@ -81,6 +72,10 @@ read_all_data()
 x_data=np.array(x_data)
 print(x_data.shape)
 np.savetxt("data.txt",x_data)
+
+
+
+
 
 
      
