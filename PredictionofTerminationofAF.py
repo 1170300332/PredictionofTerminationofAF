@@ -5,6 +5,9 @@ import torch
 import numpy as np
 from scipy import interpolate
 from sklearn.preprocessing import MinMaxScaler
+import tensorflow as tf
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 PATH = 'af-termination-challenge-database-1.0.0/learning-set/'
 ClassSet = ['n','s','t']
@@ -89,14 +92,14 @@ train_data=np.hstack((x_data,y_data))
 print(train_data.shape)
 print(train_data)
 
+
+
+
 #np.savetxt("data.txt",x_data)
-
-
-#record=wfdb.rdrecord('af-termination-challenge-database-1.0.0/learning-set/n01',channels=[0])
-
+#注释是RR间期，单位1/128s
 #annotation=wfdb.rdann('af-termination-challenge-database-1.0.0/learning-set/n01','qrs')
 #print(annotation.sample)
-#print(annotation.symbol)
+
 
 
 
